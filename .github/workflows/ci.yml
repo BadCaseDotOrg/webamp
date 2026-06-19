@@ -3,7 +3,7 @@ name: CI
 on:
   push:
   pull_request:
-
+  workflow_dispatch:  # Add this line to enable manual triggering
 jobs:
   # Main CI job - using Turborepo for dependency management
   ci:
