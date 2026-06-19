@@ -25,7 +25,7 @@ jobs:
         run: |
           npx turbo build
         env:
-          NODE_ENV: production
+          NODE_ENV: development
       - name: Lint and type-check
         run: |
           npx turbo lint type-check
