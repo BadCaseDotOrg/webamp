@@ -1,9 +1,7 @@
 name: CI
 
 on:
-  push:
-  pull_request:
-  workflow_dispatch:  # Add this line to enable manual triggering
+  workflow_dispatch:  # Manual triggering only
 jobs:
   # Main CI job - using Turborepo for dependency management
   ci:
@@ -44,6 +42,34 @@ jobs:
             packages/winamp-eqf/built
             packages/webamp/built
           key: release-artifacts-${{ github.sha }}
+      - name: Upload webamp all bundles
+        uses: actions/upload-artifact@v4
+        with:
+          name: webamp-bundles
+          path: packages/webamp/built/
+          retention-days: 30
+      - name: Upload webamp butterchurn bundles
+        uses: actions/upload-artifact@v4
+        with:
+          name: webamp-butterchurn-bundles
+          path: |
+            packages/webamp/built/webamp.butterchurn-bundle.mjs
+            packages/webamp/built/webamp.butterchurn-bundle.min.mjs
+            packages/webamp/built/webamp.butterchurn-bundle.mjs.map
+            packages/webamp/built/webamp.butterchurn-bundle.min.mjs.map
+          retention-days: 30
+      - name: Upload ani-cursor
+        uses: actions/upload-artifact@v4
+        with:
+          name: ani-cursor
+          path: packages/ani-cursor/dist/
+          retention-days: 30
+      - name: Upload winamp-eqf
+        uses: actions/upload-artifact@v4
+        with:
+          name: winamp-eqf
+          path: packages/winamp-eqf/built/
+          retention-days: 30
   # Release job - publish packages to NPM
   release:
     name: Publish packages to NPM
