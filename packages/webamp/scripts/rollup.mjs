@@ -8,7 +8,7 @@ import { getPlugins } from "./rollupPlugins.mjs";
  */
 const BUNDLES = [
   {
-    name: "Minified WebampLazy UMD",
+    name: "WebampLazy UMD",
     input: "js/webampLazy.tsx",
     minify: false,
     output: {
@@ -25,6 +25,15 @@ const BUNDLES = [
       file: "built/webamp.lazy-bundle.min.js",
       format: "umd",
       name: "Webamp",
+    },
+  },
+  {
+    name: "WebampLazy ES",
+    input: "js/webampLazy.tsx",
+    minify: false,
+    output: {
+      file: "built/webamp.lazy-bundle.mjs",
+      format: "module",
     },
   },
   {
@@ -65,6 +74,18 @@ const BUNDLES = [
   {
     name: "Webamp ES",
     input: "js/webamp.ts",
+    minify: false,
+    output: {
+      file: "built/webamp.bundle.mjs",
+      format: "module",
+      // music-metadata uses dynamic imports, so we need to inline them
+      // to avoid issues with the UMD build.
+      inlineDynamicImports: true,
+    },
+  },
+  {
+    name: "Minified Webamp ES",
+    input: "js/webamp.ts",
     minify: true,
     output: {
       file: "built/webamp.bundle.min.mjs",
@@ -76,6 +97,18 @@ const BUNDLES = [
   },
   {
     name: "Webamp Butterchurn ES",
+    input: "js/webampWithButterchurn.ts",
+    minify: false,
+    output: {
+      file: "built/webamp.butterchurn-bundle.mjs",
+      format: "module",
+      // music-metadata uses dynamic imports, so we need to inline them
+      // to avoid issues with the UMD build.
+      inlineDynamicImports: true,
+    },
+  },
+  {
+    name: "Minified Webamp Butterchurn ES",
     input: "js/webampWithButterchurn.ts",
     minify: true,
     output: {
